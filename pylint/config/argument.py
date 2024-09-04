@@ -125,9 +125,9 @@ def _regexp_paths_csv_transfomer(value: str) -> Sequence[Pattern[str]]:
     for pattern in _csv_transformer(value):
         patterns.append(
             re.compile(
-                str(pathlib.PureWindowsPath(pattern)).replace("\\", "\\\\")
+                str(pathlib.PureWindowsPath(pattern)).replace("\\", "\\\\")  # type: ignore[arg-type] # incorrect typing in typeshed
                 + "|"
-                + pathlib.PureWindowsPath(pattern).as_posix()
+                + pathlib.PurePath(pattern).as_posix()
             )
         )
     return patterns
